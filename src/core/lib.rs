@@ -43,6 +43,7 @@ use gpu::Buffers;
 use gpu::drawing::*;
 
 pub use telemetry_parser;
+use std::io::{ Read, Seek };
 
 #[cfg(feature = "opencv")]
 use calibration::LensCalibrator;
@@ -167,7 +168,7 @@ impl StabilizationManager {
         self.keyframes.write().clear();
     }
 
-    pub fn load_gyro_data<F: Fn(f64)>(&self, url: &str, is_main_video: bool, options: &gyro_source::FileLoadOptions, progress_cb: F, cancel_flag: Arc<AtomicBool>) -> std::result::Result<(), GyroflowCoreError> {
+    pub fn load_gyro_data<T: Read + Seek, F: Fn(f64)>(&self, stream: &mut T, filesize: usize, url: &str, is_main_video: bool, options: &gyro_source::FileLoadOptions, progress_cb: F, cancel_flag: Arc<AtomicBool>) -> std::result::Result<(), GyroflowCoreError> {
         {
             let params = self.params.read();
             let mut gyro = self.gyro.write();
@@ -194,7 +195,7 @@ impl StabilizationManager {
         };
 
         let cancel_flag2 = cancel_flag.clone();
-        let mut md = GyroSource::parse_telemetry_file(url, options, size, fps, progress_cb, cancel_flag2)?;
+        let mut md = GyroSource::parse_telemetry_file(stream, filesize, &url, options, size, fps, progress_cb, cancel_flag2)?;
         if md.detected_source.as_ref().map(|v| v.starts_with("GoPro ")).unwrap_or_default() {
             // If gopro reports rolling shutter value, it already applied it, ie. the video is already corrected
             md.frame_readout_time = None;
@@ -1470,12 +1471,18 @@ impl StabilizationManager {
                         let mut gyro = self.gyro.write();
                         gyro.load_from_telemetry(md);
                     } else if filesystem::exists(&gyro_url) && blocking {
-                        if let Err(e) = self.load_gyro_data(&gyro_url, is_main_video, &load_options, progress_cb, cancel_flag) {
+                        let base = filesystem::get_engine_base();
+                        let mut file = filesystem::open_file(&base, &gyro_url, false, false)?;
+                        let filesize = file.size;
+                        if let Err(e) = self.load_gyro_data(file.get_file(), filesize, &gyro_url, is_main_video, &load_options, progress_cb, cancel_flag) {
                             ::log::warn!("Failed to load gyro data from {:?}: {:?}", gyro_url, e);
                         }
                     }
                 } else if filesystem::exists(&gyro_url) && blocking {
-                    if let Err(e) = self.load_gyro_data(&gyro_url, is_main_video, &load_options, progress_cb, cancel_flag) {
+                    let base = filesystem::get_engine_base();
+                    let mut file = filesystem::open_file(&base, &gyro_url, false, false)?;
+                    let filesize = file.size;
+                    if let Err(e) = self.load_gyro_data(file.get_file(), filesize, &gyro_url, is_main_video, &load_options, progress_cb, cancel_flag) {
                         ::log::warn!("Failed to load gyro data from {:?}: {:?}", gyro_url, e);
                     }
                 }
@@ -1750,9 +1757,9 @@ impl StabilizationManager {
         false
     }
 
-    pub fn load_video_file(&self, url: &str, mut metadata: Option<telemetry_parser::util::VideoMetadata>, is_plugin: bool) -> Result<telemetry_parser::util::VideoMetadata, GyroflowCoreError> {
+    pub fn load_video_file<T: Read + Seek>(&self, stream: &mut T, filesize: usize, url: &str, mut metadata: Option<telemetry_parser::util::VideoMetadata>, is_plugin: bool) -> Result<telemetry_parser::util::VideoMetadata, GyroflowCoreError> {
         if metadata.is_none() {
-            metadata = Some(util::get_video_metadata(url)?);
+            metadata = Some(util::get_video_metadata(stream, filesize, url)?);
         }
         let metadata = metadata.unwrap();
         log::info!("Loading video file: {metadata:?}");
@@ -1762,7 +1769,7 @@ impl StabilizationManager {
             let frame_count = (metadata.duration_s * metadata.fps).ceil() as usize;
 
             self.init_from_video_data(metadata.duration_s * 1000.0, metadata.fps, frame_count, video_size);
-            let _ = self.load_gyro_data(url, true, &Default::default(), |_|(), Arc::new(AtomicBool::new(false)));
+            let _ = self.load_gyro_data(stream, filesize, url, true, &Default::default(), |_|(), Arc::new(AtomicBool::new(false)));
 
             let has_builtin_profile = {
                 let gyro = self.gyro.read();

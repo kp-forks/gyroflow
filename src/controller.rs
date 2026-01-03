@@ -770,20 +770,28 @@ impl Controller {
                 core::run_threaded(move || {
                     let mut additional_data = serde_json::Value::Object(serde_json::Map::new());
                     let additional_obj = additional_data.as_object_mut().unwrap();
-                    if is_main_video {
-                        // Ignore the error here, video file may not contain the telemetry and it's ok
-                        let _ = stab.load_gyro_data(&url, is_main_video, &load_options, progress, cancel_flag);
 
-                        stab.recompute_undistortion();
-                    } else {
-                        if sample_index > -1 {
-                            load_options.sample_index = Some(sample_index as usize);
-                        }
+                    {
+                        let base = filesystem::get_engine_base();
+                        if let Ok(mut file) = filesystem::open_file(&base, &url, false, false) {
+                            let filesize = file.size;
+                            if is_main_video {
+                                // Ignore the error here, video file may not contain the telemetry and it's ok
+                                let _ = stab.load_gyro_data(file.get_file(), filesize, &url, is_main_video, &load_options, progress, cancel_flag);
 
-                        if let Err(e) = stab.load_gyro_data(&url, is_main_video, &load_options, progress, cancel_flag) {
-                            err(("An error occured: %1".to_string(), e.to_string()));
+                                stab.recompute_undistortion();
+                            } else {
+                                if sample_index > -1 {
+                                    load_options.sample_index = Some(sample_index as usize);
+                                }
+
+                                if let Err(e) = stab.load_gyro_data(file.get_file(), filesize, &url, is_main_video, &load_options, progress, cancel_flag) {
+                                    err(("An error occured: %1".to_string(), e.to_string()));
+                                }
+                            }
                         }
                     }
+
                     stab.recompute_smoothness();
 
                     let gyro = stab.gyro.read();
@@ -2400,7 +2408,7 @@ impl Controller {
     }
 
     // Utilities
-    fn get_username(&self) -> QString { let realname = whoami::realname(); QString::from(if realname.is_empty() { whoami::username() } else { realname }) }
+    fn get_username(&self) -> QString { let realname = whoami::realname().unwrap_or_default(); QString::from(if realname.is_empty() { whoami::username().unwrap_or_default() } else { realname }) }
     fn image_to_b64(&self, img: QImage) -> QString { util::image_to_b64(img) }
     fn copy_to_clipboard(&self, text: QString) { util::copy_to_clipboard(text) }
     fn data_folder(&self) -> QUrl { QUrl::from(QString::from(gyroflow_core::filesystem::path_to_url(gyroflow_core::settings::data_dir().to_str().unwrap_or_default()))) }

@@ -18,10 +18,10 @@ use std::sync::{ Arc, atomic::AtomicBool };
 use parking_lot::RwLock;
 use telemetry_parser::{ Input, util, InputOptions, TagFilter };
 use telemetry_parser::tags_impl::{ GetWithType, GroupId, TagId, TimeQuaternion, TimeVector3 };
+use std::io::{ Read, Seek };
 
 use crate::camera_identifier::CameraIdentifier;
 use crate::stabilization_params::ReadoutDirection;
-use crate::filesystem;
 
 use super::imu_integration::*;
 use super::smoothing::SmoothingAlgorithm;
@@ -107,8 +107,8 @@ impl GyroSource {
         self.duration_ms = stabilization_params.get_scaled_duration_ms();
     }
 
-    pub fn parse_telemetry_file<F: Fn(f64)>(url: &str, options: &FileLoadOptions, size: (usize, usize), fps: f64, progress_cb: F, cancel_flag: Arc<AtomicBool>) -> Result<FileMetadata, crate::GyroflowCoreError> {
-        let key = format!("{url}{options:?}{size:?}{fps}");
+    pub fn parse_telemetry_file<T: Read + Seek, P: AsRef<std::path::Path>, F: Fn(f64)>(stream: &mut T, filesize: usize, path: P, options: &FileLoadOptions, size: (usize, usize), fps: f64, progress_cb: F, cancel_flag: Arc<AtomicBool>) -> Result<FileMetadata, crate::GyroflowCoreError> {
+        let key = format!("{}{options:?}{size:?}{fps}", path.as_ref().display());
         static CACHE: RwLock<BTreeMap<String, FileMetadata>> = RwLock::new(BTreeMap::new());
         {
             let cache = CACHE.read();
@@ -117,9 +117,6 @@ impl GyroSource {
             }
         }
 
-        let base = filesystem::get_engine_base();
-        let mut file = filesystem::open_file(&base, url, false, false)?;
-        let filesize = file.size;
         let tpoptions = InputOptions {
             blackbox_gyro_only: true,
             tag_blacklist: [
@@ -128,7 +125,7 @@ impl GyroSource {
             ].into(),
             ..Default::default()
         };
-        let mut input = Input::from_stream_with_options(file.get_file(), filesize, &url, progress_cb, cancel_flag, tpoptions)?;
+        let mut input = Input::from_stream_with_options(stream, filesize, &path, progress_cb, cancel_flag, tpoptions)?;
 
         let camera_identifier = CameraIdentifier::from_telemetry_parser(&input, size.0, size.1, fps).ok();
 

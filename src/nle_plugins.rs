@@ -219,7 +219,7 @@ pub fn is_nle_installed(typ: &str) -> bool {
     match typ {
         "openfx" => {
             if cfg!(target_os = "windows") {
-                Path::new(&format!("C:/Users/{}/AppData/Roaming/Blackmagic Design/DaVinci Resolve", whoami::username())).exists() ||
+                Path::new(&format!("C:/Users/{}/AppData/Roaming/Blackmagic Design/DaVinci Resolve", whoami::username().unwrap_or_default())).exists() ||
                 Path::new("C:/Program Files/Common Files/OFX/Plugins").exists() ||
                 Path::new("C:/Program Files/VEGAS").exists()
             } else {

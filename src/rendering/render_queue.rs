@@ -1332,7 +1332,13 @@ impl RenderQueue {
 
                                 let is_main_video = gyro_url.is_empty();
                                 let gyro_url = if !gyro_url.is_empty() { &gyro_url } else { &url };
-                                let _ = stab.load_gyro_data(gyro_url, is_main_video, &Default::default(), |_|(), Arc::new(AtomicBool::new(false)));
+                                {
+                                    let base = filesystem::get_engine_base();
+                                    if let Ok(mut file) = filesystem::open_file(&base, &gyro_url, false, false) {
+                                        let filesize = file.size;
+                                        let _ = stab.load_gyro_data(file.get_file(), filesize, &gyro_url, is_main_video, &Default::default(), |_|(), Arc::new(AtomicBool::new(false)));
+                                    }
+                                }
 
                                 let camera_id = stab.camera_id.read();
 
