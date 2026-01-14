@@ -2184,7 +2184,7 @@ dependencies = [
 [[package]]
 name = "keep-awake"
 version = "0.1.0"
-source = "git+https://github.com/AdrianEddy/keep-awake-rs.git?rev=7095b11#7095b1137be9df8b25e2f01438accc0e17a7b75e"
+source = "git+https://github.com/AdrianEddy/keep-awake-rs.git?rev=4f2a93f#4f2a93ff18a4540368f8179493a9a062cf2cdb53"
 dependencies = [
  "core-foundation",
  "dispatch",
