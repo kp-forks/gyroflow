@@ -177,10 +177,13 @@ impl WgpuWrapper {
                 BufferSource::Metal { command_queue, .. } |
                 BufferSource::MetalBuffer { command_queue, .. } if !(*command_queue).is_null() => {
                     unsafe {
-                        use metal::foreign_types::ForeignType;
+                        use objc2::rc::Retained;
+                        use objc2::runtime::ProtocolObject;
+                        use objc2_metal::*;
                         use wgpu::hal::api::Metal;
 
-                        let mtl_cq = metal::CommandQueue::from_ptr(*command_queue);
+                        let mtl_cq: Retained<ProtocolObject<dyn MTLCommandQueue>> =
+                            Retained::retain(*command_queue as *mut ProtocolObject<dyn MTLCommandQueue>).unwrap();
                         let mtl_dev = mtl_cq.device();
 
                         let max_buffer_bits = if cfg!(any(target_os = "android", target_os = "ios")) { 29 } else { 31 };
@@ -195,7 +198,7 @@ impl WgpuWrapper {
                         limits.max_storage_buffer_binding_size = ((1 << max_storage_buffer_bits) - 1+5).min(adapter_limits.max_storage_buffer_binding_size);
 
                         adapter.create_device_from_hal(wgpu::hal::OpenDevice::<Metal> {
-                            device: <Metal as wgpu::hal::Api>::Device::device_from_raw(mtl_dev.to_owned(), wgpu::Features::empty()),
+                            device: <Metal as wgpu::hal::Api>::Device::device_from_raw(mtl_dev, wgpu::Features::empty()),
                             queue: <Metal as wgpu::hal::Api>::Queue::queue_from_raw(mtl_cq, 1.0)
                         }, &wgpu::DeviceDescriptor {
                             label: None,

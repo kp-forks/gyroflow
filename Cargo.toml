@@ -90,8 +90,8 @@ features = [ "Win32_System_Com", "Win32_System_Console", "Win32_System_SystemSer
 oslog = "0.2"
 
 [target.'cfg(any(target_os = "macos", target_os = "ios"))'.dependencies]
-metal = { version = "0.33.0" }
-core-foundation-sys = "0.8.7"
+objc2 = "0.6"
+objc2-metal = "0.3"
 
 [build-dependencies]
 cpp_build = "0.5.9"
