@@ -66,7 +66,7 @@ impl Drop for WgpuWrapper {
 }
 
 lazy_static::lazy_static! {
-    static ref INSTANCE: Mutex<wgpu::Instance> = Mutex::new(wgpu::Instance::new(&wgpu::InstanceDescriptor::default()));
+    static ref INSTANCE: Mutex<wgpu::Instance> = Mutex::new(wgpu::Instance::new(wgpu::InstanceDescriptor::new_without_display_handle()));
     static ref ADAPTERS: RwLock<Vec<Adapter>> = RwLock::new(Vec::new());
     static ref ADAPTER: AtomicUsize = AtomicUsize::new(0);
 }
@@ -336,7 +336,7 @@ impl WgpuWrapper {
 
             let pipeline_layout = device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
                 label: None,
-                bind_group_layouts: &[&bind_group_layout],
+                bind_group_layouts: &[Some(&bind_group_layout)],
                 immediate_size: 0
             });
 
