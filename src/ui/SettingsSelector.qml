@@ -25,7 +25,7 @@ Modal {
         },
         "Lens profile": {
             "Lens profile":                ["calibration_data", "light_refraction_coefficient"],
-            "Disable Gyroflow's stretch":  ["plugin_disable_stretch"],
+            "Disable lens stretch (for plugins)":  ["plugin_disable_stretch"],
         },
         "Motion data|gyro_source": {
             "Low pass filter":    ["lpf"],
