@@ -1926,6 +1926,14 @@ pub fn run_threaded<F>(cb: F) where F: FnOnce() + Send + 'static {
     THREAD_POOL.spawn(cb);
 }
 
+/// Drop cached GPU pipelines on every worker thread of the render pool.
+/// Used to reclaim VRAM after a render-queue job finishes.
+pub fn clear_gpu_cache_on_all_workers() {
+    THREAD_POOL.broadcast(|_| {
+        stabilization::clear_gpu_cache_current_thread();
+    });
+}
+
 use std::str::FromStr;
 #[derive(Debug, Clone, PartialEq, ::serde::Serialize, ::serde::Deserialize)]
 pub enum GyroflowProjectType {

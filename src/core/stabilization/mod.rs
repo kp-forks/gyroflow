@@ -65,6 +65,21 @@ thread_local! {
     static CACHED_OPENCL: RefCell<lru::LruCache<u32, opencl::OclWrapper>> = RefCell::new(lru::LruCache::new(std::num::NonZeroUsize::new(15).unwrap()));
 }
 
+/// Drop the current thread's cached GPU pipelines to reclaim VRAM.
+///
+/// Uses the same cross-thread-drop pattern as `ThreadLocalWgpuCache::drop` to
+/// avoid the Vulkan-on-destroy hang (gfx-rs/wgpu#4973).
+pub fn clear_gpu_cache_current_thread() {
+    CACHED_WGPU.with(|x| {
+        let inner = x.0.replace(lru::LruCache::new(std::num::NonZeroUsize::new(15).unwrap()));
+        std::thread::spawn(move || drop(inner));
+    });
+    #[cfg(feature = "use-opencl")]
+    CACHED_OPENCL.with(|x| {
+        x.borrow_mut().clear();
+    });
+}
+
 bitflags::bitflags! {
     #[derive(Default, Clone)]
     pub struct KernelParamsFlags: i32 {

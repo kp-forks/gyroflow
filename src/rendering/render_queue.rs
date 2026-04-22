@@ -838,6 +838,11 @@ impl RenderQueue {
 
                 let is_queue_active = this.status == "active".into();
                 if finished {
+                    // Drop cached GPU pipelines across render workers to reclaim VRAM
+                    // before the next job starts. Skip if another render is still active.
+                    if this.get_active_render_count() == 0 {
+                        core::clear_gpu_cache_on_all_workers();
+                    }
                     if this.get_pending_count() > 0 && is_queue_active {
                         // Start the next one
                         this.start();
@@ -879,6 +884,10 @@ impl RenderQueue {
 
                 this.error(job_id, QString::from(msg), QString::from(arg), QString::default());
                 this.render_progress(job_id, 1.0, 0, 0, true, 0.0, false);
+
+                if this.get_active_render_count() == 0 {
+                    core::clear_gpu_cache_on_all_workers();
+                }
 
                 if this.get_pending_count() > 0 {
                     // Start the next one
