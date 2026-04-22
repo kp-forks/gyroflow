@@ -77,62 +77,62 @@ Note that this is only a visual indicator, it doesn&apos;t affect rendering.</so
     <message>
       <location filename="../../src/ui/menu/Advanced.qml" line="330"/>
       <source>Device for video processing</source>
-      <translation type="unfinished">Device for video processing</translation>
+      <translation>Dispositivo para processamento de vídeo</translation>
     </message>
     <message>
       <location filename="../../src/ui/menu/Advanced.qml" line="344"/>
       <source>CPU only</source>
-      <translation type="unfinished">CPU only</translation>
+      <translation>Somente CPU</translation>
     </message>
     <message>
       <location filename="../../src/ui/menu/Advanced.qml" line="387"/>
       <source>Default file suffix</source>
-      <translation type="unfinished">Default file suffix</translation>
+      <translation>Sufixo de arquivo padrão</translation>
     </message>
     <message>
       <location filename="../../src/ui/menu/Advanced.qml" line="398"/>
       <source>Notification sounds</source>
-      <translation type="unfinished">Notification sounds</translation>
+      <translation>Sons de notificação</translation>
     </message>
     <message>
       <location filename="../../src/ui/menu/Advanced.qml" line="403"/>
       <source>Reset all settings to default</source>
-      <translation type="unfinished">Reset all settings to default</translation>
+      <translation>Restaurar todas as configurações para o padrão</translation>
     </message>
     <message>
       <location filename="../../src/ui/menu/Advanced.qml" line="407"/>
       <source>Are you sure you want to clear all settings and restore the defaults?</source>
-      <translation type="unfinished">Are you sure you want to clear all settings and restore the defaults?</translation>
+      <translation>Tem certeza de que deseja limpar todas as configurações e restaurar o padrão?</translation>
     </message>
     <message>
       <location filename="../../src/ui/menu/Advanced.qml" line="408"/>
       <source>Yes</source>
-      <translation type="unfinished">Yes</translation>
+      <translation>Sim</translation>
     </message>
     <message>
       <location filename="../../src/ui/menu/Advanced.qml" line="416"/>
       <source>Settings cleared, please restart Gyroflow for the changes to take effect.</source>
-      <translation type="unfinished">Settings cleared, please restart Gyroflow for the changes to take effect.</translation>
+      <translation>Configurações limpas, reinicie o Gyroflow para que as alterações tenham efeito.</translation>
     </message>
     <message>
       <location filename="../../src/ui/menu/Advanced.qml" line="417"/>
       <source>Exit</source>
-      <translation type="unfinished">Exit</translation>
+      <translation>Sair</translation>
     </message>
     <message>
       <location filename="../../src/ui/menu/Advanced.qml" line="418"/>
       <source>Ok</source>
-      <translation type="unfinished">Ok</translation>
+      <translation>Confirmar</translation>
     </message>
     <message>
       <location filename="../../src/ui/menu/Advanced.qml" line="421"/>
       <source>No</source>
-      <translation type="unfinished">No</translation>
+      <translation>Não</translation>
     </message>
     <message>
       <location filename="../../src/ui/menu/Advanced.qml" line="427"/>
       <source>Open data folder</source>
-      <translation type="unfinished">Open data folder</translation>
+      <translation>Abrir pasta de dados</translation>
     </message>
   </context>
   <context>
@@ -174,8 +174,8 @@ Note that this is only a visual indicator, it doesn&apos;t affect rendering.</so
       <location filename="../../src/ui/App.qml" line="298"/>
       <source>This format is not available for rendering.
 The recommended workflow is to export project file and use one of [video editor plugins] (%1).</source>
-      <translation type="unfinished">This format is not available for rendering.
-The recommended workflow is to export project file and use one of [video editor plugins] (%1).</translation>
+      <translation>Este formato não está disponível para renderização.
+O fluxo de trabalho recomendado é exportar o arquivo do projeto e usar um dos [plugins editor de vídeo] (%1).</translation>
     </message>
     <message>
       <location filename="../../src/ui/App.qml" line="336"/>
@@ -250,16 +250,17 @@ The recommended workflow is to export project file and use one of [video editor 
 Please check the file bitrate after rendering and if you&apos;re affected by this bug, you can either:
 - Set output bitrate to less than 100 Mbps
 - Use &quot;Custom encoder options&quot;: `-rc cqp -qp_i 28 -qp_p 28`</source>
-      <translation type="unfinished">Some AMD GPU encoders have a bug where it limits the bitrate to 20 Mbps, if the target bitrate is greater than 100 Mbps.
+      <translation>Alguns codificadores de GPU da AMD têm um bug em que limitam a taxa de bits a 20 Mbps, se a taxa de bits alvo for maior que 100 Mbps.
 
-Please check the file bitrate after rendering and if you&apos;re affected by this bug, you can either:
-- Set output bitrate to less than 100 Mbps
-- Use &quot;Custom encoder options&quot;: `-rc cqp -qp_i 28 -qp_p 28`</translation>
+Por favor, verifique a taxa de bits do arquivo após a renderização e, se você estiver afetado por esse bug, você pode:
+
+- Definir a taxa de bits de saída para menos de 100 Mbps
+- Usar &quot;Opções de codificador personalizado&quot;: `-rc cqp -qp_i 28 -qp_p 28`</translation>
     </message>
     <message>
       <location filename="../../src/ui/App.qml" line="771"/>
       <source>Saving...</source>
-      <translation type="unfinished">Saving...</translation>
+      <translation>Salvando...</translation>
     </message>
     <message>
       <location filename="../../src/ui/App.qml" line="631"/>
@@ -271,7 +272,7 @@ Please check the file bitrate after rendering and if you&apos;re affected by thi
       <location filename="../../src/ui/App.qml" line="448"/>
       <location filename="../../src/ui/App.qml" line="667"/>
       <source>Preset saved to %1</source>
-      <translation type="unfinished">Preset saved to %1</translation>
+      <translation>Predefinição salva em %1</translation>
     </message>
     <message>
       <location filename="../../src/ui/App.qml" line="632"/>
@@ -310,41 +311,41 @@ Please check the file bitrate after rendering and if you&apos;re affected by thi
       <location filename="../../src/ui/App.qml" line="331"/>
       <location filename="../../src/ui/App.qml" line="334"/>
       <source>Added to queue</source>
-      <translation type="unfinished">Added to queue</translation>
+      <translation>Adicionado à fila</translation>
     </message>
     <message>
       <location filename="../../src/ui/App.qml" line="331"/>
       <source>file %1 will be overwritten</source>
-      <translation type="unfinished">file %1 will be overwritten</translation>
+      <translation>arquivo %1 será substituído</translation>
     </message>
     <message>
       <location filename="../../src/ui/App.qml" line="334"/>
       <source>file will be rendered to %1</source>
-      <translation type="unfinished">file will be rendered to %1</translation>
+      <translation>arquivo será renderizado para %1</translation>
     </message>
     <message>
       <location filename="../../src/ui/App.qml" line="364"/>
       <source>Due to file access restrictions, you need to select the destination folder manually.
 Click Ok and select the destination folder.</source>
-      <translation type="unfinished">Due to file access restrictions, you need to select the destination folder manually.
-Click Ok and select the destination folder.</translation>
+      <translation>Devido a restrições de acesso ao arquivo, você precisa selecionar a pasta de destino manualmente.
+Clique em Confirmar e selecione a pasta de destino.</translation>
     </message>
     <message>
       <location filename="../../src/ui/App.qml" line="375"/>
       <source>Keep this app in the foreground and don&apos;t lock the screen.
 Due to limitations of the system video encoders, rendering in the background is not supported.</source>
-      <translation type="unfinished">Keep this app in the foreground and don&apos;t lock the screen.
-Due to limitations of the system video encoders, rendering in the background is not supported.</translation>
+      <translation>Mantenha este aplicativo em primeiro plano e não bloqueie a tela.
+Devido a limitações dos codificadores de vídeo do sistema, a renderização em segundo plano não é suportada.</translation>
     </message>
     <message>
       <location filename="../../src/ui/App.qml" line="439"/>
       <source>Enter the name for the preset: </source>
-      <translation type="unfinished">Enter the name for the preset: </translation>
+      <translation>Digite o nome para a predefinição: </translation>
     </message>
     <message>
       <location filename="../../src/ui/App.qml" line="443"/>
       <source>Name cannot be empty.</source>
-      <translation type="unfinished">Name cannot be empty.</translation>
+      <translation>Nome não pode estar vazio.</translation>
     </message>
     <message>
       <location filename="../../src/ui/App.qml" line="674"/>
@@ -365,24 +366,24 @@ Due to limitations of the system video encoders, rendering in the background is 
     <message>
       <location filename="../../src/ui/App.qml" line="677"/>
       <source>Gyroflow will shut down the computer in 60 seconds because all tasks have been completed.</source>
-      <translation type="unfinished">Gyroflow will shut down the computer in 60 seconds because all tasks have been completed.</translation>
+      <translation>Gyroflow irá desligar o computador em 60 segundos porque todas as tarefas foram concluídas.</translation>
     </message>
     <message>
       <location filename="../../src/ui/App.qml" line="678"/>
       <source>Gyroflow will reboot the computer in 60 seconds because all tasks have been completed.</source>
-      <translation type="unfinished">Gyroflow will reboot the computer in 60 seconds because all tasks have been completed.</translation>
+      <translation>Gyroflow irá reiniciar o computador em 60 segundos porque todas as tarefas foram concluídas.</translation>
     </message>
     <message>
       <location filename="../../src/ui/App.qml" line="689"/>
       <source>This encoder requires an external library licensed as GPL.
 Do you agree with the [GPL license] and want to download the additional codec?</source>
-      <translation type="unfinished">This encoder requires an external library licensed as GPL.
-Do you agree with the [GPL license] and want to download the additional codec?</translation>
+      <translation>Este codificador requer uma biblioteca externa licenciada como GPL.
+Você concorda com a [licença GPL] e deseja baixar o codec adicional?</translation>
     </message>
     <message>
       <location filename="../../src/ui/App.qml" line="690"/>
       <source>Yes, I agree</source>
-      <translation type="unfinished">Yes, I agree</translation>
+      <translation>Sim, eu concordo</translation>
     </message>
     <message>
       <location filename="../../src/ui/App.qml" line="705"/>
@@ -419,22 +420,22 @@ Se você tiver um dispositivo moderno, instale os drivers da GPU mais recentes, 
     <message>
       <location filename="../../src/ui/App.qml" line="724"/>
       <source>Your GPU doesn&apos;t support H.265/HEVC encoding, try to use H.264/AVC or disable GPU encoding in Export settings.</source>
-      <translation type="unfinished">Your GPU doesn&apos;t support H.265/HEVC encoding, try to use H.264/AVC or disable GPU encoding in Export settings.</translation>
+      <translation>Sua GPU não suporta a codificação H.265/HEVC, tente usar H.264/AVC ou desabilite a codificação GPU nas configurações de Exportação.</translation>
     </message>
     <message>
       <location filename="../../src/ui/App.qml" line="727"/>
       <source>GPU decoder failed to decode this file. Disable GPU decoding in &quot;Advanced&quot; and try again.</source>
-      <translation type="unfinished">GPU decoder failed to decode this file. Disable GPU decoding in &quot;Advanced&quot; and try again.</translation>
+      <translation>O decodificador GPU falhou ao decodificar este arquivo. Desative a decodificação GPU em &quot;Avançado&quot; e tente novamente.</translation>
     </message>
     <message>
       <location filename="../../src/ui/App.qml" line="730"/>
       <source>Make sure your output extension supports the selected codec. &quot;.mov&quot; should work in most cases.</source>
-      <translation type="unfinished">Make sure your output extension supports the selected codec. &quot;.mov&quot; should work in most cases.</translation>
+      <translation>Certifique-se de que sua extensão do arquivo de saída suporta o codec selecionado. &quot;.mov&quot; deve funcionar na maioria dos casos.</translation>
     </message>
     <message>
       <location filename="../../src/ui/App.qml" line="733"/>
       <source>Audio encoder couldn&apos;t process the input data. Try unchecking &quot;Export audio&quot; in Export settings.</source>
-      <translation type="unfinished">Audio encoder couldn&apos;t process the input data. Try unchecking &quot;Export audio&quot; in Export settings.</translation>
+      <translation>O codificador de áudio não conseguiu processar os dados de entrada. Tente desmarcar &quot;Exportar áudio&quot; nas configurações de exportação.</translation>
     </message>
   </context>
   <context>
@@ -476,7 +477,7 @@ Se você tiver um dispositivo moderno, instale os drivers da GPU mais recentes, 
     <message>
       <location filename="../../src/ui/Calibrator.qml" line="80"/>
       <source>Pattern sharpness: %1</source>
-      <translation type="unfinished">Pattern sharpness: %1</translation>
+      <translation>Nitidez do padrão: %1</translation>
     </message>
     <message>
       <location filename="../../src/ui/Calibrator.qml" line="96"/>

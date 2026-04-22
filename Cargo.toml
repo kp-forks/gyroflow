@@ -16,7 +16,7 @@ system_shutdown = "4.1"
 breakpad-sys = "0.2.0"
 trash = "5.2"
 # For nle_plugins
-zip = { version = "8.4", default-features = false, features = ["deflate-flate2"] }
+zip = { version = "8.5", default-features = false, features = ["deflate-flate2"] }
 zip-extensions = { version = "0.14", default-features = false, features = ["deflate-flate2"] }
 runas = "1.2"
 tempfile = "3"
@@ -27,17 +27,17 @@ gyroflow-core = { path = "src/core/", features = ["use-opencv"] }
 
 [dependencies]
 cstr = "0.2.12"
-cpp = "0.5.9"
+cpp = "0.5.11"
 serde = "1.0"
 serde_json = "1.0"
 bytemuck = "1.25"
 nalgebra = "0.34"
-semver = "1.0.27"
+semver = "1.0.28"
 fastrand = "2.1.0"
 itertools = "0.14.0"
 regex = "1.12"
 rayon = "1.10"
-mimalloc = { version = "0.1.48", default-features = false }
+mimalloc = { version = "0.1.50", default-features = false }
 
 pollster = "0.4.0"
 futures-intrusive = "0.5.0"
@@ -68,7 +68,7 @@ ureq = "3.2"
 url = "2.5.7"
 whoami = "2.1"
 tar = "0.4.45"
-lru = "0.16"
+lru = "0.17"
 chrono = "0.4"
 
 log-panics = { version = "2.1", features = ["with-backtrace"] }
@@ -94,7 +94,7 @@ objc2 = "0.6"
 objc2-metal = "0.3"
 
 [build-dependencies]
-cpp_build = "0.5.9"
+cpp_build = "0.5.11"
 winres = "0.1.12"
 walkdir = "2.5.0"
 cc = "1.2"

@@ -2951,7 +2951,7 @@ Make sure you have proper rolling shutter value set before syncing.</source>
     <message>
       <location filename="../../src/ui/menu/VideoInformation.qml" line="30"/>
       <source>Detected lens</source>
-      <translation>Виявлено лінзу</translation>
+      <translation>Виявлена лінза</translation>
     </message>
     <message>
       <location filename="../../src/ui/menu/VideoInformation.qml" line="32"/>
@@ -3659,7 +3659,7 @@ Disable lens stabilization (Optical SteadyShot) in order to use Gyroflow.</sourc
     <message>
       <location filename="../../src/ui/VideoArea.qml" line="676"/>
       <source>Focal length: %1 mm</source>
-      <translation>Фокусна довжина: %1 мм</translation>
+      <translation>Фокусна відстань: %1 мм</translation>
     </message>
     <message>
       <location filename="../../src/ui/VideoArea.qml" line="678"/>
